@@ -2,29 +2,39 @@ import React, {Component} from 'react'
 import TrackName from './trackName'
 
 export default class ResultList extends Component {
-  addToQueue = (track) => {
-    this.props.addToQueue(track)
+  get hasResults () {
+    return this.props.results.tracks && this.props.results.tracks.items.length !== 0
   }
 
-  render() {
-    if (this.props.results.length === 0) {
+  get results () {
+    if (!this.hasResults) {
       return (<p>Ei hakutuloksia.</p>)
     }
 
-    const tracks = this.props.results.map(track => {
+    const tracks = this.props.results.tracks.items.map(track => {
       return (
-        <ResultListItem key={ track.id } track={ track } addToQueue={ this.addToQueue } />
+        <ResultListItem key={ track.id } track={ track } addToQueue={ this.props.addToQueue } />
       )
     });
 
     return (
-      <div>
-        <h2>Hakutulokset</h2>
-        <ul>
-          { tracks }
-        </ul>
-      </div>
+      <ul>
+        { tracks }
+      </ul>
     )
+  }
+
+  render() {
+    if (this.props.results.tracks) {
+      return (
+        <div>
+          <h2>Haku</h2>
+          { this.results }
+        </div>
+      )
+    }
+
+    return null;
   }
 }
 

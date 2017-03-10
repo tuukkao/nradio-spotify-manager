@@ -9,7 +9,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       query: '',
-      results: [],
+      results: {},
       queue: [],
       playedTracks: []
     }
@@ -20,14 +20,14 @@ export default class App extends Component {
   }
 
   performSearch = async () => {
-    this.setState({ results: [] })
+    this.setState({ results: {} })
     const response = await fetch(`https://api.spotify.com/v1/search?q=${this.state.query}&type=track&market=fi`);
     const json = await response.json()
 
     if (json.tracks) {
-      this.setState({ results: json.tracks.items});
+      this.setState({ results: json});
     } else {
-      this.setState({ results: [] });
+      alert("Haussa tapahtui virhe.");
     }
   }
 

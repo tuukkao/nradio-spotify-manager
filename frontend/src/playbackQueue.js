@@ -30,16 +30,14 @@ export default class PlaybackQueue extends Component {
       return (
         <PlaybackQueueItem key={ track.id }
                            track={ track }
-                           deleteTrack={ this.deleteTrack }
+                           deleteTrack={ this.props.deleteTrack }
                            playTrack={ this.playTrack } />
       )
     })
 
     if (this.props.queue.length === 0) {
       return (
-        <div>
-          <h2>Soittojono on toistaiseksi tyhjä.</h2>
-        </div>
+        <h2>Soittojono on toistaiseksi tyhjä.</h2>
       )
     }
 
