@@ -24,11 +24,17 @@ export default class ResultList extends Component {
     )
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.results !== prevProps.results) {
+      this.resultHeading.focus();
+    }
+  }
+
   render() {
     if (this.props.results.tracks) {
       return (
         <div>
-          <h2>Haku</h2>
+          <h2 tabIndex="-1" ref={ (heading) => this.resultHeading = heading }>Haku</h2>
           { this.results }
         </div>
       )
