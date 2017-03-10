@@ -25,7 +25,19 @@ export default class PlaybackQueue extends Component {
     )
   }
 
-  render() {
+  get headingText () {
+    if (this.props.queue.length === 0) {
+      return "Soittojono on toistaiseksi tyhjä."
+    }
+
+    return `Jono (${ this.props.queue.length })`
+  }
+
+  get queue () {
+    if (this.props.queue.length === 0) {
+      return null;
+    }
+
     const tracks = this.props.queue.map(track => {
       return (
         <PlaybackQueueItem key={ track.id }
@@ -35,15 +47,8 @@ export default class PlaybackQueue extends Component {
       )
     })
 
-    if (this.props.queue.length === 0) {
-      return (
-        <h2>Soittojono on toistaiseksi tyhjä.</h2>
-      )
-    }
-
     return (
       <div>
-        <h2>Jono</h2>
         <button onClick={ this.handlePlayNext}>
           Toista seuraava
         </button>
@@ -51,6 +56,28 @@ export default class PlaybackQueue extends Component {
         <ol>
           { tracks }
         </ol>
+      </div>
+    )
+  }
+
+  setFocusToHeading = () => {
+    this.focusHeadingOnNextUpdate = true
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.queue !== prevProps.queue && this.focusHeadingOnNextUpdate) {
+      this.heading.focus()
+      this.focusHeadingOnNextUpdate = false
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <h2 tabIndex="-1" ref={ (heading) => this.heading = heading }>
+          { this.headingText }
+        </h2>
+        { this.queue }
       </div>
     )
   }

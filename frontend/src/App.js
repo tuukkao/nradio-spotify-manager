@@ -37,6 +37,7 @@ export default class App extends Component {
         queue: prevState.queue.concat(track)
       }
     })
+    this.refs.playbackQueue.setFocusToHeading()
   }
 
   deleteFromQueue = (track) => {
@@ -65,7 +66,8 @@ export default class App extends Component {
                     addToQueue={ this.addToQueue }  />
         <PlaybackQueue queue={ this.state.queue }
                        deleteTrack={ this.deleteFromQueue }
-                       addToPlayedTracks={ this.addToPlayedTracks } />
+                       addToPlayedTracks={ this.addToPlayedTracks }
+                       ref="playbackQueue" />
         <PlayedTracks tracks={ this.state.playedTracks } />
       </div>
     );
