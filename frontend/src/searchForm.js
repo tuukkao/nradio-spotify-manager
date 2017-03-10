@@ -7,6 +7,7 @@ export default class SearchForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    this.input.select()
     this.props.performSearch();
   }
 
@@ -16,7 +17,9 @@ export default class SearchForm extends Component {
         <label>
           Hae:
           <input type="search" value={ this.props.query }
-          onChange={ this.handleChange } />
+                 onChange={ this.handleChange }
+                 onFocus={ this.handleOnFocus }
+                 ref={ (input) => this.input = input } />
         </label>
         <input type="submit" value="Hae" />
       </form>
