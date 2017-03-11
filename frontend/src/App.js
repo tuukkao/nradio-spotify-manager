@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PlaybackQueue from './playbackQueue'
 import PlayedTracks from './playedTracks'
+import RadioStats from './radioStats'
 import ResultList from './resultList'
 import SearchForm from './searchForm'
 
@@ -68,6 +69,7 @@ export default class App extends Component {
                        deleteTrack={ this.deleteFromQueue }
                        addToPlayedTracks={ this.addToPlayedTracks }
                        ref="playbackQueue" />
+        <RadioStats url="http://nradio.dy.fi:8000" />
         <PlayedTracks tracks={ this.state.playedTracks } />
       </div>
     );
